@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оформление заказа</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            text-align: center;
+            padding: 20px;
+        }
+        .order-form {
+            background: white;
+            padding: 20px;
+            max-width: 400px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            text-align: left;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* Ensures padding doesn't affect width */
+        }
+        input[type="text"] {
+            background-color: #fff;
+        }
+        button {
+            background-color: #ff6699;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ff3366;
+        }
+        .success-message {
+            display: none;
+            color: green;
+            font-size: 18px;
+            margin-top: 20px;
+            transition: opacity 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <h2>Оформление заказа</h2>
+    <div class="order-form">
+        <form id="orderForm">
+            <label for="name">Имя:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="surname">Фамилия:</label>
+            <input type="text" id="surname" name="surname" required>
+            
+            <label for="phone">Номер телефона:</label>
+            <input type="text" id="phone" name="phone" required>
+            
+            <label for="location">Место доставки:</label>
+            <select id="location" name="location" required>
+                <option value="На пункте">Забрать в магазине</option>
+                <option value="Другое">Другое</option>
+            </select>
+            
+            <button type="submit">Подтвердить заказ</button>
+        </form>
+        <p class="success-message" id="successMessage">Вы сделали заказ!</p>
+    </div>
+
+    <script>
+        document.getElementById("orderForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let successMessage = document.getElementById("successMessage");
+            successMessage.style.display = "block";
+            successMessage.style.opacity = "1";
+
+            // Очищаем форму после успешного заказа
+            this.reset();
+
+            // Скрываем сообщение через 3 секунды
+            setTimeout(() => {
+                successMessage.style.opacity = "0";
+                setTimeout(() => successMessage.style.display = "none", 500);
+            }, 3000);
+        });
+
+        // Скрываем сообщение при новом вводе данных
+        document.querySelectorAll("input, select").forEach(element => {
+            element.addEventListener("input", () => {
+                let successMessage = document.getElementById("successMessage");
+                successMessage.style.display = "none";
+            });
+        });
+    </script>
+</body>
+</html>
